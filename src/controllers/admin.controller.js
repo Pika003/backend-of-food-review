@@ -1,10 +1,11 @@
 import {asyncHandler} from "../utils/asyncHandler.js";
 import {ApiError} from "../utils/ApiError.js";
 import {user} from "../models/user.model.js";
+import {message} from "../models/message.model.js";
 import {admin} from "../models/admin.model.js";
 import {ApiResponse} from "../utils/ApiResponse.js";
+import { uploadOnCloudinary } from "../utils/cloudinary.js";
 // import nodemailer from "nodemailer";
-// import { uploadOnCloudinary } from "../utils/cloudinary.js";
 // import { Sendmail } from "../utils/Nodemailer.js";
 
 
@@ -118,9 +119,41 @@ const adminLogout = asyncHandler(async(req,res)=>{
     .json(new ApiResponse(200, {}, "admin logged out"))
 })
 
+// const getMessage = asyncHandler(async(req,res)=>{
+
+//     const AllMsg = await message.find({})
+
+//     return res 
+//     .status(200)
+//     .json(new ApiResponse(200,{AllMsg}, "successfully message fetch"))
+// })
+
+const addMessage = asyncHandler(async(req,res)=>{
+    const {email, name} = req.body
+
+    const ProfileImgPath = req.files?.profileImg?.[0]?.path
+    
+    if(!ProfileImgPath){
+        throw new ApiError(400, "Profile image is required")
+    }
+
+    const profileImg = await uploadOnCloudinary(ProfileImgPath)
+
+    const newMsg = await message.create({
+        email,
+        name,
+        profileImg : profileImg.url
+    })
+
+    return res.status(200).json(
+        new ApiResponse(200, newMsg, "Message added successfull")
+    )
+})
+
 
 export{
     adminSignUp, 
     adminLogin, 
-    adminLogout,   
+    adminLogout,
+    addMessage,   
 }

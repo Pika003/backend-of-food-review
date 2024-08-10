@@ -3,7 +3,7 @@ import {ApiError} from "../utils/ApiError.js";
 import {user} from "../models/user.model.js";
 import {ApiResponse} from "../utils/ApiResponse.js";
 // import nodemailer from "nodemailer";
-// import { uploadOnCloudinary } from "../utils/cloudinary.js";
+import { uploadOnCloudinary } from "../utils/cloudinary.js";
 // import { Sendmail } from "../utils/Nodemailer.js";
 
 
@@ -37,14 +37,23 @@ const userSignUp = asyncHandler(async (req, res) =>{
         throw new ApiError(400, "All fields are required")
     }
 
-    const existedUser = await user.findOne({ email: req.body.Email });
+    const existedUser = await user.findOne({ Email: req.body.Email });
     if(existedUser){
         throw new ApiError(400, "User already exist")
     }
+
+    // const ProfileImgPath = req.files?.profile_img_url?.[0]?.path
     
+    // if(!ProfileImgPath){
+    //     throw new ApiError(400, "Profile image is required")
+    // }
+
+    // const profileImg = await uploadOnCloudinary(ProfileImgPath)
+
     const newUser = await user.create({
         Email,
         Password
+        // profile_img_url : profileImg.url
     })
 
     const createdUser = await user.findById(newUser._id).select(

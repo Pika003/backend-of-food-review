@@ -7,8 +7,13 @@ import {
   
 } from "../controllers/user.controller.js";
 import { authUser } from "../middlewares/userAuth.middleware.js";
+// import { upload } from '../middlewares/multer.middleware.js'
 
 const router = Router()
+
+// router.route("/signup").post(upload.fields(
+//     [{name : "profile_img_url"}]
+// ),userSignUp)
 
 router.route("/signup").post(userSignUp)
 
