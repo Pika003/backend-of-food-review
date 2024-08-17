@@ -27,7 +27,7 @@ const allFood = asyncHandler(async(req,res)=>{
 const getFoodByName = asyncHandler(async(req,res)=>{
     const FoodName = req.params.foodName;
 
-    const Food = await food.find({title : FoodName})
+    const Food = await food.find( {$text: {$search: FoodName}} )
 
     return res
     .status(200)

@@ -120,7 +120,7 @@ const userLogin = asyncHandler(async(req,res) => {
 
 const userLogout = asyncHandler(async(req,res)=>{
     await user.findByIdAndUpdate(
-        req.user._id,
+        req.params.ID,
         {
             $set:{
                 Refreshtoken:undefined,

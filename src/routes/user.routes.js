@@ -7,6 +7,7 @@ import {
   
 } from "../controllers/user.controller.js";
 import { authUser } from "../middlewares/userAuth.middleware.js";
+import { authSchema } from "../middlewares/joiLogin.middleware.js";
 // import { upload } from '../middlewares/multer.middleware.js'
 
 const router = Router()
@@ -17,7 +18,7 @@ const router = Router()
 
 router.route("/signup").post(userSignUp)
 
-router.route("/login").post(userLogin)
+router.route("/login").post(authSchema, userLogin)
 
 router.route("/logout").post(authUser, userLogout)
 
