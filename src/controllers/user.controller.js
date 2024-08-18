@@ -2,6 +2,7 @@ import {asyncHandler} from "../utils/asyncHandler.js";
 import {ApiError} from "../utils/ApiError.js";
 import {user} from "../models/user.model.js";
 import {ApiResponse} from "../utils/ApiResponse.js";
+import jwt from "jsonwebtoken";
 // import nodemailer from "nodemailer";
 import { uploadOnCloudinary } from "../utils/cloudinary.js";
 // import { Sendmail } from "../utils/Nodemailer.js";
@@ -164,10 +165,31 @@ const getUser = asyncHandler(async(req,res)=>{
 //     .json(new ApiResponse(200, user, "User is logged in"))
 // })
 
+const getCookies = asyncHandler(async(req, res)=>{
+    const accToken = req.cookies?.Accesstoken
+
+    if(!accToken) {
+        throw new ApiError(401, "cookies not found")
+    }
+
+    const decodedAccToken = jwt.verify(accToken,
+        process.env.ACCESS_TOKEN_SECRET)
+
+    const User = await user.findById(decodedAccToken?._id).select("-Password -Refreshtoken")
+
+    if(!User){
+        throw new ApiError(401, "cookies not found")
+    }
+
+    return res
+    .status(200)
+    .json(new ApiResponse(200, user, "User is logged in"))
+})
 
 export{
     userSignUp,
     userLogin,
     userLogout,
     getUser,
+    getCookies
 }

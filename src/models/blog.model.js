@@ -17,15 +17,15 @@ const blogSchema =  new mongoose.Schema({
         required: true,
     },
 
-    user_id:{
-        type:String,
-        required: true,
-    },
+    // user_id:{
+    //     type:String,
+    //     required: true,
+    // },
 
-    target_id:{
-        type:String,
-        required: true,
-    }
+    // target_id:{
+    //     type:String,
+    //     required: true,
+    // }
 
 },{timestamps:true}) 
 
