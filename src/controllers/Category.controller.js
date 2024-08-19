@@ -25,7 +25,7 @@ const allCategory = asyncHandler(async(req,res)=>{
 
 const getCategory = asyncHandler(async(req,res)=>{
     const ID = req.params.id
-    const Categorie = await categorie.find({_id: ID})
+    const Categorie = await categorie.findOne({_id: ID})
 
     if(!Categorie){
         throw new ApiError(400, "Categories is not found !")
