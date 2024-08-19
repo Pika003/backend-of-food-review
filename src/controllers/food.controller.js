@@ -57,6 +57,16 @@ const delFood = asyncHandler(async(req,res)=>{
     .json(new ApiResponse(200, "Food Delete Successfully"))
 })
 
+const updateFood = asyncHandler(async(req,res)=>{
+    const ID = req.params.id
+    const newFood = req.body
+
+    const Food = await food.updateOne({_id : ID},{$set: {...newFood}})
+
+    return res
+    .status(200)
+    .json(new ApiResponse(200, "Food Update Successfully"))
+})
 
 
 
@@ -65,5 +75,6 @@ export {
     allFood,
     getFood,
     getFoodByName,
-    delFood
+    delFood,
+    updateFood
 }

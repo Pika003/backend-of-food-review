@@ -50,7 +50,6 @@ const deleteHotel = asyncHandler(async(req,res)=>{
     const ID = req.params.id
 
     const Hotel = await hotel.deleteOne({_id: ID});
-    console.log(Hotel);
 
     return res
     .status(200)

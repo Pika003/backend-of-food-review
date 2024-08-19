@@ -4,7 +4,8 @@ import {
     allFood,
     getFood,
     getFoodByName,
-    delFood
+    delFood,
+    updateFood
 } from "../controllers/food.controller.js"
 
 const router = Router()
@@ -17,6 +18,8 @@ router.route("/:id").get(getFood)
 
 router.route("/search/:foodName").get(getFoodByName)
 
-router.route("/:id").delete(delFood)
+router.route("/update/:id").put(updateFood)
+
+router.route("/delete/:id").delete(delFood)
 
 export default router;

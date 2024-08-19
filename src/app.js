@@ -29,6 +29,10 @@ app.use("/api/hotel", hotelRouter)
 import foodRouter from "./routes/food.routes.js"
 app.use("/api/food", foodRouter)
 
+//categories routes
+import categories from "./routes/categories.routes.js"
+app.use("/api/category", categories)
+
 //blog routes
 import blogRouter from "./routes/blog.routes.js"
 app.use("/api/blog", blogRouter)
