@@ -46,11 +46,23 @@ const updateHotel = asyncHandler(async(req,res)=>{
     .json(new ApiResponse(200, Hotel, "Hotel Update Successfully"))
 })
 
+const deleteHotel = asyncHandler(async(req,res)=>{
+    const ID = req.params.id
+
+    const Hotel = await hotel.deleteOne({_id: ID});
+    console.log(Hotel);
+
+    return res
+    .status(200)
+    .json(new ApiResponse(200,"Hotel Delete Successfully"))
+})
+
 
 
 export {
     addHotel,
     allHotel,
     getHotel,
-    updateHotel
+    updateHotel,
+    deleteHotel
 }
