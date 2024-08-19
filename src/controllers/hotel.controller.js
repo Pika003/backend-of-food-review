@@ -35,10 +35,22 @@ const getHotel = asyncHandler(async(req,res)=>{
     .json(new ApiResponse(200, Hotel, "Successfully found"))
 })
 
+const updateHotel = asyncHandler(async(req,res)=>{
+    const ID = req.params.id
+    const newHotel = req.body
+
+    const Hotel = await hotel.updateOne({_id : ID},{$set: {...newHotel}})
+
+    return res
+    .status(200)
+    .json(new ApiResponse(200, Hotel, "Hotel Update Successfully"))
+})
+
 
 
 export {
     addHotel,
     allHotel,
-    getHotel
+    getHotel,
+    updateHotel
 }
