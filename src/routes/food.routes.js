@@ -5,7 +5,8 @@ import {
     getFood,
     getFoodByName,
     delFood,
-    updateFood
+    updateFood,
+    getHotelFood
 } from "../controllers/food.controller.js"
 
 const router = Router()
@@ -15,6 +16,8 @@ router.route("/add").post(addFood)
 router.route("/all").get(allFood)
 
 router.route("/:id").get(getFood)
+
+router.route("/hotel/:id").get(getHotelFood)
 
 router.route("/search/:foodName").get(getFoodByName)
 
