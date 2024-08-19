@@ -2,7 +2,25 @@ import mongoose from "mongoose"
 
 const hotelSchema =  new mongoose.Schema({
 
-    title:{
+    hotel_name:{
+        type:String,
+        required:true,
+    },
+
+    phone:{
+        type:Number,
+        required:true,
+    },
+
+    opening: {
+        type: String,
+    },
+
+    closing: {
+        type: String,
+    },
+
+    address:{
         type:String,
         required:true,
     },
@@ -17,24 +35,9 @@ const hotelSchema =  new mongoose.Schema({
         required: true,
     },
 
-    time_slot: {
-        opening_time: {
-            type: Number,
-        },
-        closing_time: {
-            type: Number,
-        }
-    },
-
-    categories:[{
-        type:String,
-        required: true,
-    }],
-
-    price:{
+    isActive:{
         type:Number,
-        required: true,
-        default: 0,
+        default: 1,
     },
 
     rating:{
@@ -42,20 +45,7 @@ const hotelSchema =  new mongoose.Schema({
         default: 0,
     },
 
-    total_rating:{
-        type:Number,
-        default: 0,
-    },
-
-    // food: {
-    //     type: mongoose.Schema.Types.ObjectId,
-    //     ref: 'food'
-    // },
-
-    // map:{
-    //     type: Location,
-    // }
-}) 
+}, {timestamps : true}) 
 
 const hotel = mongoose.model("hotel",hotelSchema);
 
