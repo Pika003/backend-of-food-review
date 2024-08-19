@@ -8,9 +8,9 @@ import { authAdmin } from "../middlewares/adminAuth.middleware.js";
 
 const router = Router()
 
-router.route("/add").post(authAdmin, addHotel)
+router.route("/add").post(addHotel)
 
-router.route("/all").get(authAdmin, allHotel)
+router.route("/all").get(allHotel)
 
 router.route("/:id").get(getHotel)
 
