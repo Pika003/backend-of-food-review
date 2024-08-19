@@ -73,6 +73,7 @@ const userSignUp = asyncHandler(async (req, res) =>{
 
 const userLogin = asyncHandler(async(req,res) => {
 
+
     const{Email, Password} = req.body;
 
     if([Email, Password].some((field) => field?.trim() === "")) {
@@ -104,6 +105,7 @@ const userLogin = asyncHandler(async(req,res) => {
         httpOnly:true,
         secure:true,
     }
+        console.log("login is working .......")
 
     return res
     .status(200)
@@ -135,6 +137,7 @@ const userLogout = asyncHandler(async(req,res)=>{
         httpOnly:true,
         secure:true,
     }
+    console.log('logout ......')
 
     return res
     .status(200)
@@ -180,6 +183,8 @@ const getCookies = asyncHandler(async(req, res)=>{
     if(!User){
         throw new ApiError(401, "cookies not found")
     }
+
+    console.log('coookies ......')
 
     return res
     .status(200)
