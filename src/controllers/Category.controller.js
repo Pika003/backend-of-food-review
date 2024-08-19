@@ -16,7 +16,19 @@ const allCategory = asyncHandler(async(req,res)=>{
     const Categorie = await categorie.find({})
 
     if(!Categorie){
-        throw new ApiError(400, "Food is not found !")
+        throw new ApiError(400, "Categories is not found !")
+    }
+    return res
+    .status(200)
+    .json(new ApiResponse(200, Categorie, "Successfully fetch Categories"))
+})
+
+const getCategory = asyncHandler(async(req,res)=>{
+    const ID = req.params.id
+    const Categorie = await categorie.find({_id: ID})
+
+    if(!Categorie){
+        throw new ApiError(400, "Categories is not found !")
     }
     return res
     .status(200)
@@ -38,5 +50,6 @@ const updateCategory = asyncHandler(async(req,res)=>{
 export {
     addCategory,
     allCategory,
-    updateCategory
+    updateCategory,
+    getCategory
 }
