@@ -81,6 +81,18 @@ const getHotelFood = asyncHandler(async(req,res)=>{
     .json(new ApiResponse(200, Food, "Successfully found"))
 })
 
+const popularFood = asyncHandler(async(req,res)=>{
+
+    const Food = await food.find({}).sort({rating:-1}).limit(6);
+    
+    if(!Food){
+        throw new ApiError(400, "Food is not found !")
+    }
+    return res
+    .status(200)
+    .json(new ApiResponse(200, Food, "Successfully found"))
+})
+
 export {
     addFood,
     allFood,
@@ -88,5 +100,6 @@ export {
     getFoodByName,
     delFood,
     updateFood,
-    getHotelFood
+    getHotelFood,
+    popularFood
 }

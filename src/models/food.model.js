@@ -33,6 +33,11 @@ const foodSchema =  new mongoose.Schema({
         default: 0,
     },
 
+    type:[{
+        type:String,
+        required: true,
+    }],
+
     rating:{
         type:Number,
         default: 0,
