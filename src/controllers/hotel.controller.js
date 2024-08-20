@@ -68,6 +68,15 @@ const popularHotel = asyncHandler(async(req,res)=>{
     .json(new ApiResponse(200, Hotel, "Successfully found"))
 })
 
+const getHotelByName = asyncHandler(async(req,res)=>{
+    const HotelName = req.params.hotelName;
+
+    const Hotel = await hotel.find( {$text: {$search: HotelName}} )
+
+    return res
+    .status(200)
+    .json(new ApiResponse(200, Hotel, "Successfully fetch"))
+})
 
 export {
     addHotel,
@@ -75,5 +84,6 @@ export {
     getHotel,
     updateHotel,
     deleteHotel,
-    popularHotel
+    popularHotel,
+    getHotelByName
 }

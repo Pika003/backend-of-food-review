@@ -5,7 +5,8 @@ import {
     getHotel,
     updateHotel,
     deleteHotel,
-    popularHotel
+    popularHotel,
+    getHotelByName
 } from "../controllers/hotel.controller.js";
 import { authAdmin } from "../middlewares/adminAuth.middleware.js";
 
@@ -18,6 +19,8 @@ router.route("/all").get(allHotel)
 router.route("/popular").get(popularHotel);
 
 router.route("/:id").get(getHotel)
+
+router.route("/search/:hotelName").get(getHotelByName)
 
 router.route("/update/:id").put(updateHotel)
 

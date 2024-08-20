@@ -4,7 +4,9 @@ import {
     userLogin, 
     userLogout, 
     getUser,
-    getCookies
+    getCookies,
+    SearchData,
+    getAllUser
   
 } from "../controllers/user.controller.js";
 import { authUser } from "../middlewares/userAuth.middleware.js";
@@ -26,6 +28,10 @@ router.route("/logout").post(authUser, userLogout)
 router.route("/profile/:id").get(authUser, getUser)
 
 router.route("/cookies").get(getCookies)
+
+router.route("/searchItem/:searchItem").get(SearchData)
+
+router.route("/all").get(getAllUser)
 
 // router.route("/edit_profile").post(authUser, editeUser)
 

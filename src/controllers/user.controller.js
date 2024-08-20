@@ -1,10 +1,13 @@
 import {asyncHandler} from "../utils/asyncHandler.js";
 import {ApiError} from "../utils/ApiError.js";
 import {user} from "../models/user.model.js";
+import {food} from "../models/food.model.js";
+import {hotel} from "../models/hotel.model.js";
 import {ApiResponse} from "../utils/ApiResponse.js";
 import jwt from "jsonwebtoken";
+
 // import nodemailer from "nodemailer";
-import { uploadOnCloudinary } from "../utils/cloudinary.js";
+// import { uploadOnCloudinary } from "../utils/cloudinary.js";
 // import { Sendmail } from "../utils/Nodemailer.js";
 
 
@@ -191,10 +194,46 @@ const getCookies = asyncHandler(async(req, res)=>{
     .json(new ApiResponse(200, user, "User is logged in"))
 })
 
+const SearchData = asyncHandler(async(req, res)=>{
+    const SearchItem = req.params.searchItem;
+
+    const Food = await food.find( {$text: {$search: SearchItem}} );
+
+    const Hotel = await hotel.find( {$text: {$search: SearchItem}} );
+
+    if(Food.length === 0){
+        if(Hotel.length === 0){
+            return res
+            .status(200)
+            .json(new ApiResponse(200, "Noting Found"))
+        }else{
+            return res
+            .status(200)
+            .json(new ApiResponse(200, "Hotel"))
+        }
+        
+    }else{
+        return res
+        .status(200)
+        .json(new ApiResponse(200, "Food"))
+    }
+})
+
+const getAllUser = asyncHandler(async(req, res)=>{
+    const AllUser = await user.find({});
+
+    return res
+    .status(200)
+    .json(new ApiResponse(200, AllUser, "user fetch successfully"))
+})
+
+
 export{
     userSignUp,
     userLogin,
     userLogout,
     getUser,
-    getCookies
+    getCookies,
+    SearchData,
+    getAllUser
 }
