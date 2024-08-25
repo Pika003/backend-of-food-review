@@ -25,7 +25,7 @@ router.route("/login").post(userLogin)
 
 router.route("/logout").post(authUser, userLogout)
 
-router.route("/profile/:id").get(authUser, getUser)
+router.route("/profile/:id").get(getUser)
 
 router.route("/cookies").get(getCookies)
 

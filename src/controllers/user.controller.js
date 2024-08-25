@@ -108,7 +108,6 @@ const userLogin = asyncHandler(async(req,res) => {
         httpOnly:true,
         secure:true,
     }
-        console.log("login is working .......")
 
     return res
     .status(200)
@@ -151,13 +150,11 @@ const userLogout = asyncHandler(async(req,res)=>{
 
 const getUser = asyncHandler(async(req,res)=>{
     const id = req.params.id
+    const NewUSER = await user.findOne({_id : id})
 
-    if(req.user._id != id){
-        throw new ApiError(400, "unauthroized access")
-    }
     return res
     .status(200)
-    .json(new ApiResponse(200, user, "User is logged in"))
+    .json(new ApiResponse(200, NewUSER, "User Found"))
 })
 
 // const editeUser = asyncHandler(async(req,res)=>{
