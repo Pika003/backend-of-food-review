@@ -6,18 +6,14 @@ import {
     getUser,
     getCookies,
     SearchData,
-    getAllUser
-  
+    getAllUser,
+    editUser
 } from "../controllers/user.controller.js";
 import { authUser } from "../middlewares/userAuth.middleware.js";
 // import { authSchema } from "../middlewares/joiLogin.middleware.js";
-// import { upload } from '../middlewares/multer.middleware.js'
+import { upload } from '../middlewares/multer.middleware.js'
 
 const router = Router()
-
-// router.route("/signup").post(upload.fields(
-//     [{name : "profile_img_url"}]
-// ),userSignUp)
 
 router.route("/signup").post(userSignUp)
 
@@ -27,13 +23,15 @@ router.route("/logout").post(authUser, userLogout)
 
 router.route("/profile/:id").get(getUser)
 
+router.route("/edit-profile/:id").put(upload.fields(
+    [{name: "profile_img_url"}]
+), editUser)
+
 router.route("/cookies").get(getCookies)
 
 router.route("/searchItem/:searchItem").get(SearchData)
 
 router.route("/all").get(getAllUser)
-
-// router.route("/edit_profile").post(authUser, editeUser)
 
 // router.route('/forgetpassword').post(forgetPassword)
 

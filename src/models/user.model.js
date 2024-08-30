@@ -31,17 +31,65 @@ const userSchema =  new mongoose.Schema({
         type:String,
     },
 
+    birthdate:{
+        month:{
+            type:Number,
+        },
+        date:{
+            type:Number,
+        },
+        year:{
+            type:Number,
+        }
+    },
+
     address:{
-        type:String,
+        address1:{
+            type:String,
+        },
+        address2:{
+            type:String,
+        },
+        city:{
+            type:String,
+        },
+        state:{
+            type:String,
+        },
+        zip:{
+            type:Number,
+        },
+        country:{
+            type:String,
+        }
     },
 
     phone_no:{
-        type:String,
+        prefix:{
+            type:String,
+        },
+        phone:{
+            type:Number,
+        },
     },
 
-    social_media: [{
-        type: String
-    }],
+    social_media: {
+        facebook: {
+            type: String
+        },
+        instagram: {
+            type: String
+        },
+        youTube: {
+            type: String
+        },
+        tikTok: {
+            type: String
+        },
+        twitter: {
+            type: String
+        }
+    },
 
     Refreshtoken:{
         type:String,

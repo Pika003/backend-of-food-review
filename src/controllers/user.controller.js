@@ -7,7 +7,7 @@ import {ApiResponse} from "../utils/ApiResponse.js";
 import jwt from "jsonwebtoken";
 
 // import nodemailer from "nodemailer";
-// import { uploadOnCloudinary } from "../utils/cloudinary.js";
+import { uploadOnCloudinary } from "../utils/cloudinary.js";
 // import { Sendmail } from "../utils/Nodemailer.js";
 
 
@@ -157,16 +157,25 @@ const getUser = asyncHandler(async(req,res)=>{
     .json(new ApiResponse(200, NewUSER, "User Found"))
 })
 
-// const editeUser = asyncHandler(async(req,res)=>{
-//     const user = req.user
-//     const id = req.params.id
-//     if(req.user._id != id){
-//         throw new ApiError(400, "unauthroized access")
-//     }
-//     return res
-//     .status(200)
-//     .json(new ApiResponse(200, user, "User is logged in"))
-// })
+const editUser = asyncHandler(async (req, res) => {
+    const ID = req.params.id;
+    let newUser = req.body;
+    console.log('Files:', req.files);
+    
+    const userImagePath = req.files?.profile_img_url?.[0]?.path;
+    console.log(userImagePath)
+
+    if (userImagePath) {
+        const userImage = await uploadOnCloudinary(userImagePath);
+        console.log("Img: ",userImage)
+        newUser = { ...newUser, profile_img_url: userImage.url };
+    }
+
+    await user.updateOne({ _id: ID }, { $set: { ...newUser } });
+
+    const updatedUser = await user.findById(ID);
+    return res.status(200).json(new ApiResponse(200, updatedUser, "User Updated Successfully"));
+});
 
 const getCookies = asyncHandler(async(req, res)=>{
     const accToken = req.cookies?.Accesstoken
@@ -232,5 +241,6 @@ export{
     getUser,
     getCookies,
     SearchData,
-    getAllUser
+    getAllUser,
+    editUser
 }
