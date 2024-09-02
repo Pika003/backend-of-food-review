@@ -7,7 +7,8 @@ import {
     getCookies,
     SearchData,
     getAllUser,
-    editUser
+    editUser,
+    googleLogin
 } from "../controllers/user.controller.js";
 import { authUser } from "../middlewares/userAuth.middleware.js";
 // import { authSchema } from "../middlewares/joiLogin.middleware.js";
@@ -18,6 +19,8 @@ const router = Router()
 router.route("/signup").post(userSignUp)
 
 router.route("/login").post(userLogin)
+
+router.route("/googleLogin").post(googleLogin)
 
 router.route("/logout").post(authUser, userLogout)
 

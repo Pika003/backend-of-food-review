@@ -5,6 +5,8 @@ import {food} from "../models/food.model.js";
 import {hotel} from "../models/hotel.model.js";
 import {ApiResponse} from "../utils/ApiResponse.js";
 import jwt from "jsonwebtoken";
+import  {oauth2client}  from "../utils/googleConfig.js";
+import axios from 'axios';
 
 // import nodemailer from "nodemailer";
 import { uploadOnCloudinary } from "../utils/cloudinary.js";
@@ -104,7 +106,7 @@ const userLogin = asyncHandler(async(req,res) => {
 
     const loggedInUser = await user.findById(tempUser).select("-Password -Refreshtoken")
 
-    const options = {
+    const options = { //hide kore try kor
         httpOnly:true,
         secure:true,
     }
@@ -120,7 +122,62 @@ const userLogin = asyncHandler(async(req,res) => {
             }, "logged in"
         )
     )
+})
 
+const googleLogin = asyncHandler(async(req,res)=> {
+    try {
+        const code = req.body.code;
+
+        const googleRes = await oauth2client.getToken(code);
+        oauth2client.setCredentials(googleRes.tokens);
+
+        const userRes = await axios.get(`https://www.googleapis.com/oauth2/v1/userinfo?alt=json&access_token=${googleRes.tokens.access_token}`)
+        const {id, email, name, picture} = userRes.data;
+
+        let User = await user.findOne({Email: email});
+
+        if(!User){
+            User = await user.create({
+                Email: email,
+                Password: id,
+                user_name: name,
+                profile_img_url: picture,
+
+            })
+        }
+
+        const tempUser = User._id;
+
+        const {Accesstoken, Refreshtoken} =  await generateAccessAndRefreshTokens(tempUser)
+
+        const loggedInUser = await user.findById(tempUser).select("-Password -Refreshtoken")
+
+        const options = { //hide kore try kor
+            httpOnly:true,
+            secure:true,
+        }
+
+        return res
+        .status(200)
+        .cookie("Accesstoken", Accesstoken, options)
+        .cookie("Refreshtoken", Refreshtoken, options)
+        .json(
+            new ApiResponse(
+                200,{
+                user:loggedInUser
+                }, "logged in"
+            )
+        )
+
+    } catch (error) {
+        return res
+        .status(500)
+        .json(
+            new ApiResponse(
+                500, "Internal Server Err"
+            )
+        )
+    }
 })
 
 const userLogout = asyncHandler(async(req,res)=>{
@@ -139,7 +196,6 @@ const userLogout = asyncHandler(async(req,res)=>{
         httpOnly:true,
         secure:true,
     }
-    console.log('logout ......')
 
     return res
     .status(200)
@@ -160,14 +216,11 @@ const getUser = asyncHandler(async(req,res)=>{
 const editUser = asyncHandler(async (req, res) => {
     const ID = req.params.id;
     let newUser = req.body;
-    console.log('Files:', req.files);
     
     const userImagePath = req.files?.profile_img_url?.[0]?.path;
-    console.log(userImagePath)
 
     if (userImagePath) {
         const userImage = await uploadOnCloudinary(userImagePath);
-        console.log("Img: ",userImage)
         newUser = { ...newUser, profile_img_url: userImage.url };
     }
 
@@ -192,8 +245,6 @@ const getCookies = asyncHandler(async(req, res)=>{
     if(!User){
         throw new ApiError(401, "cookies not found")
     }
-
-    console.log('coookies ......')
 
     return res
     .status(200)
@@ -242,5 +293,6 @@ export{
     getCookies,
     SearchData,
     getAllUser,
-    editUser
+    editUser,
+    googleLogin
 }
