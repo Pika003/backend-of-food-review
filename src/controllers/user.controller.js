@@ -170,6 +170,7 @@ const googleLogin = asyncHandler(async(req,res)=> {
         )
 
     } catch (error) {
+        console.log("ser Err: ",error)
         return res
         .status(500)
         .json(
