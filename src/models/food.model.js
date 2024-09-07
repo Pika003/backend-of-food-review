@@ -46,6 +46,11 @@ const foodSchema =  new mongoose.Schema({
     hotel_id: {
         type:String,
         required: true,
+    },
+
+    status:{
+        type:Number,
+        default: 1,
     }
 }) 
 

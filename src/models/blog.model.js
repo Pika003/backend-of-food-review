@@ -17,16 +17,10 @@ const blogSchema =  new mongoose.Schema({
         required: true,
     },
 
-    // user_id:{
-    //     type:String,
-    //     required: true,
-    // },
-
-    // target_id:{
-    //     type:String,
-    //     required: true,
-    // }
-
+    status:{
+        type:Number,
+        default: 1,
+    }
 },{timestamps:true}) 
 
 const blog = mongoose.model("blog",blogSchema);
