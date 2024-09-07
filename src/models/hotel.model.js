@@ -7,6 +7,10 @@ const hotelSchema =  new mongoose.Schema({
         required:true,
     },
 
+    slug:{
+        type:String
+    },
+
     phone:{
         type:Number,
         required:true,

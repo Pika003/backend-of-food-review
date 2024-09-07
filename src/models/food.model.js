@@ -6,6 +6,10 @@ const foodSchema =  new mongoose.Schema({
         type:String,
         required:true,
     },
+
+    slug:{
+        type:String
+    },
     
     description:{
         type:String,

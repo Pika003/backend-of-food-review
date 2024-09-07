@@ -2,10 +2,16 @@ import {asyncHandler} from "../utils/asyncHandler.js";
 import {ApiError} from "../utils/ApiError.js";
 import {hotel} from "../models/hotel.model.js";
 import {ApiResponse} from "../utils/ApiResponse.js";
-
+import { MakeSlug } from "../utils/MakeSlug.js"
 
 const addHotel = asyncHandler(async(req,res)=>{
-    const newHotel = await hotel.create({ ...req.body})
+    let HotelData = req.body;
+    let Slug = MakeSlug(HotelData.hotel_name);
+
+    HotelData = {...HotelData, slug: Slug};
+
+
+    const newHotel = await hotel.create({ ...HotelData})
     return res
     .status(200)
     .json(new ApiResponse(200, newHotel, "Hotel Successfully added"))

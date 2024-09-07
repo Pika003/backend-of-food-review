@@ -2,11 +2,17 @@ import {asyncHandler} from "../utils/asyncHandler.js";
 import {ApiError} from "../utils/ApiError.js";
 import {blog} from "../models/blog.model.js";
 import {ApiResponse} from "../utils/ApiResponse.js";
+import { MakeSlug } from "../utils/MakeSlug.js"
 
 
 
 const addBlog = asyncHandler(async(req,res)=>{
-    const newBlog = await blog.create({ ...req.body})
+    let blogData = req.body;
+    let Slug = MakeSlug(blogData.title);
+
+    blogData = {...blogData, slug: Slug};
+
+    const newBlog = await blog.create({ ...blogData })
     return res
     .status(200)
     .json(new ApiResponse(200, newBlog, "Blog added Successfully"))

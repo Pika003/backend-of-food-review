@@ -2,11 +2,15 @@ import {asyncHandler} from "../utils/asyncHandler.js";
 import {ApiError} from "../utils/ApiError.js";
 import {food} from "../models/food.model.js";
 import {ApiResponse} from "../utils/ApiResponse.js";
-
+import { MakeSlug } from "../utils/MakeSlug.js"
 
 const addFood = asyncHandler(async(req,res)=>{
+    let foodData = req.body;
+    let Slug = MakeSlug(foodData.title);
 
-    const newFood = await food.create({ ...req.body})
+    foodData = {...foodData, slug: Slug};
+
+    const newFood = await food.create({ ...foodData})
     return res
     .status(200)
     .json(new ApiResponse(200, newFood, "Food Successfully added"))
