@@ -4,14 +4,13 @@ import {
     allBlog,
     getBlog
 } from "../controllers/blog.controller.js";
-import { authUser } from "../middlewares/userAuth.middleware.js";
 
 const router = Router()
 
-router.route("/add").post(authUser, addBlog)
+router.route("/add").post(addBlog)
 
-router.route("/all").get(authUser, allBlog)
+router.route("/all").get(allBlog)
 
-router.route("/:id").get(authUser, getBlog)
+router.route("/:id").get(getBlog)
 
 export default router;
