@@ -17,7 +17,7 @@ const addFood = asyncHandler(async(req,res)=>{
 })
 
 const allFood = asyncHandler(async(req,res)=>{
-    const Food = await food.find({}).limit(10)
+    const Food = await food.find({})
 
     if(!Food){
         throw new ApiError(400, "Food is not found !")
