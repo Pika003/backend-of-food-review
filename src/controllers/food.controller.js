@@ -17,7 +17,7 @@ const addFood = asyncHandler(async(req,res)=>{
 })
 
 const allFood = asyncHandler(async(req,res)=>{
-    const Food = await food.find({})
+    const Food = await food.find({}).limit(10)
 
     if(!Food){
         throw new ApiError(400, "Food is not found !")
@@ -87,7 +87,7 @@ const getHotelFood = asyncHandler(async(req,res)=>{
 
 const popularFood = asyncHandler(async(req,res)=>{
 
-    const Food = await food.find({}).sort({rating:-1}).limit(6);
+    const Food = await food.find({}).sort({rating:-1}).limit(5);
     
     if(!Food){
         throw new ApiError(400, "Food is not found !")
