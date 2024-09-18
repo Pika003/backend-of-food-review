@@ -41,4 +41,16 @@ app.use("/api/blog", blogRouter)
 import reviewRouter from "./routes/review.routes.js"
 app.use("/api/review", reviewRouter)
 
+//tag routes
+import tagRouter from "./routes/tag.routes.js"
+app.use("/api/tag", tagRouter)
+
+//type routes
+import typeRouter from "./routes/type.routes.js"
+app.use("/api/type", typeRouter)
+
+//menu routes
+import menuRouter from "./routes/menu.routes.js"
+app.use("/api/menu", menuRouter)
+
 export {app}
