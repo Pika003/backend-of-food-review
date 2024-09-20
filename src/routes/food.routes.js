@@ -7,7 +7,8 @@ import {
     delFood,
     updateFood,
     getHotelFood,
-    popularFood
+    popularFood,
+    filterFood
 } from "../controllers/food.controller.js"
 
 const router = Router()
@@ -17,6 +18,8 @@ router.route("/add").post(addFood)
 router.route("/all").get(allFood)
 
 router.route("/popular").get(popularFood);
+
+router.route("/filter").post(filterFood);
 
 router.route("/:id").get(getFood)
 

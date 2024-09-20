@@ -4,6 +4,9 @@ import {food} from "../models/food.model.js";
 import {ApiResponse} from "../utils/ApiResponse.js";
 import { MakeSlug } from "../utils/MakeSlug.js"
 
+import mongoose from "mongoose";
+const ObjectId = mongoose.Types.ObjectId;
+
 const addFood = asyncHandler(async(req,res)=>{
     let foodData = req.body;
     let Slug = MakeSlug(foodData.title);
@@ -17,7 +20,7 @@ const addFood = asyncHandler(async(req,res)=>{
 })
 
 const allFood = asyncHandler(async(req,res)=>{
-    const Food = await food.find({})
+    const Food = await food.find({}).limit(100)
 
     if(!Food){
         throw new ApiError(400, "Food is not found !")
@@ -97,6 +100,63 @@ const popularFood = asyncHandler(async(req,res)=>{
     .json(new ApiResponse(200, Food, "Successfully found"))
 })
 
+
+const filterFood = asyncHandler(async (req, res) => {
+  const { sortPrice, selectedMenu, selectedPriceRange, selectedTag } = req.body;
+
+  console.log(selectedMenu)
+
+  const tagObjectId = selectedTag.map((id) => new ObjectId(id));
+  const menuObjectId = selectedMenu.map((id) => new ObjectId(id));
+
+  console.log("Tag",tagObjectId)
+
+  const query = {};
+
+  // Filter by Tag
+  if (tagObjectId.length > 0) {
+    query.tags = { $in: tagObjectId };
+  }
+
+  // Filter by Menu
+  if (menuObjectId.length > 0) {
+    query.menus = { $in: menuObjectId };
+  }
+
+  // Filter by price range
+  if (selectedPriceRange) {
+    if (selectedPriceRange === "under-50") {
+      query.price = { $lt: 50 };
+    } else if (selectedPriceRange === "50-100") {
+      query.price = { $gte: 50, $lte: 100 };
+    } else if (selectedPriceRange === "above-100") {
+      query.price = { $gt: 100 };
+    }
+  }
+
+  // Sort by Price
+  const sortOptions = {};
+  if (sortPrice) {
+    if (sortPrice === "low-high") {
+      sortOptions.price = 1;
+    } else if (sortPrice === "high-low") {
+      sortOptions.price = -1;
+    }
+  }
+
+  console.log("query",query)
+
+  // Execute the query
+  const filteredData = await food.find(query).sort(sortOptions).limit(25);
+
+  if (!filteredData || filteredData.length === 0) {
+    throw new ApiError(400, "No matching food items found!");
+  }
+
+  return res.status(200).json(new ApiResponse(200, filteredData, "Successfully found"));
+});
+
+
 export {
     addFood,
     allFood,
@@ -105,5 +165,6 @@ export {
     delFood,
     updateFood,
     getHotelFood,
-    popularFood
+    popularFood,
+    filterFood
 }
