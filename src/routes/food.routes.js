@@ -19,7 +19,7 @@ router.route("/all").get(allFood)
 
 router.route("/popular").get(popularFood);
 
-router.route("/filter").post(filterFood);
+router.route("/filter/:pageNo").post(filterFood);
 
 router.route("/:id").get(getFood)
 

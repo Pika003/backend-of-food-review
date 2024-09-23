@@ -6,9 +6,9 @@ import {
     updateHotel,
     deleteHotel,
     popularHotel,
-    getHotelByName
+    getHotelByName,
+    filterHotel
 } from "../controllers/hotel.controller.js";
-import { authAdmin } from "../middlewares/adminAuth.middleware.js";
 
 const router = Router()
 
@@ -17,6 +17,8 @@ router.route("/add").post(addHotel)
 router.route("/all").get(allHotel)
 
 router.route("/popular").get(popularHotel);
+
+router.route("/filter/:pageNo").post(filterHotel);
 
 router.route("/:id").get(getHotel)
 

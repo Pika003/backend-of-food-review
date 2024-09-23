@@ -20,7 +20,7 @@ const addFood = asyncHandler(async(req,res)=>{
 })
 
 const allFood = asyncHandler(async(req,res)=>{
-    const Food = await food.find({}).limit(100)
+    const Food = await food.find({}).limit(15)
 
     if(!Food){
         throw new ApiError(400, "Food is not found !")
@@ -34,7 +34,7 @@ const allFood = asyncHandler(async(req,res)=>{
 const getFoodByName = asyncHandler(async(req,res)=>{
     const FoodName = req.params.foodName;
 
-    const Food = await food.find( {$text: {$search: FoodName}} )
+    const Food = await food.find({$text: {$search: FoodName}}).limit(15)
 
     return res
     .status(200)
@@ -103,13 +103,10 @@ const popularFood = asyncHandler(async(req,res)=>{
 
 const filterFood = asyncHandler(async (req, res) => {
   const { sortPrice, selectedMenu, selectedPriceRange, selectedTag } = req.body;
-
-  console.log(selectedMenu)
+  const pageNo = req.params.pageNo;
 
   const tagObjectId = selectedTag.map((id) => new ObjectId(id));
   const menuObjectId = selectedMenu.map((id) => new ObjectId(id));
-
-  console.log("Tag",tagObjectId)
 
   const query = {};
 
@@ -144,10 +141,8 @@ const filterFood = asyncHandler(async (req, res) => {
     }
   }
 
-  console.log("query",query)
-
   // Execute the query
-  const filteredData = await food.find(query).sort(sortOptions).limit(25);
+  const filteredData = await food.find(query).sort(sortOptions).skip((pageNo - 1)*15).limit(15).exec();
 
   if (!filteredData || filteredData.length === 0) {
     throw new ApiError(400, "No matching food items found!");
@@ -158,13 +153,13 @@ const filterFood = asyncHandler(async (req, res) => {
 
 
 export {
-    addFood,
-    allFood,
-    getFood,
-    getFoodByName,
-    delFood,
-    updateFood,
-    getHotelFood,
-    popularFood,
-    filterFood
+  addFood,
+  allFood,
+  getFood,
+  getFoodByName,
+  delFood,
+  updateFood,
+  getHotelFood,
+  popularFood,
+  filterFood
 }
