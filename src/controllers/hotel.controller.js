@@ -21,7 +21,7 @@ const addHotel = asyncHandler(async(req,res)=>{
 })
 
 const allHotel = asyncHandler(async(req,res)=>{
-    const Hotel = await hotel.find({}).limit(15)
+    const Hotel = await hotel.find({})
 
     if(!Hotel){
         throw new ApiError(400, "Hotel is not found !")
