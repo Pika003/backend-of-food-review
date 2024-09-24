@@ -125,7 +125,7 @@ const getMessage = asyncHandler(async(req,res)=>{
 
     return res 
     .status(200)
-    .json(new ApiResponse(200,{AllMsg}, "successfully message fetch"))
+    .json(new ApiResponse(200, AllMsg, "successfully message fetch"))
 })
 
 const addMessage = asyncHandler(async(req,res)=>{
