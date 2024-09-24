@@ -121,7 +121,7 @@ const adminLogout = asyncHandler(async(req,res)=>{
 
 const getMessage = asyncHandler(async(req,res)=>{
 
-    const AllMsg = await message.find({})
+    const AllMsg = await message.find({}).sort({ _id: -1 });
 
     return res 
     .status(200)
