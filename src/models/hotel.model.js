@@ -11,10 +11,29 @@ const hotelSchema =  new mongoose.Schema({
         type:String
     },
 
-    phone:{
-        type:Number,
+    url:{
+        type:String
+    },
+
+    menus:[{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'menu'
+    }],
+
+    image:[{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'image'
+    }],
+
+    featured:{
+        type:String,
         required:true,
     },
+
+    // phone:{
+    //     type:Number,
+    //     required:true,
+    // },
 
     opening: {
         type: String,
@@ -34,20 +53,20 @@ const hotelSchema =  new mongoose.Schema({
         required: true,
     },
 
-    image:{
-        type:String,
-        required: true,
-    },
+    // image:{
+    //     type:String,
+    //     required: true,
+    // },
 
     isActive:{
         type:Number,
         default: 1,
     },
 
-    rating:{
-        type:Number,
-        default: 0,
-    },
+    // rating:{
+    //     type:Number,
+    //     default: 0,
+    // },
 
 }, {timestamps : true}) 
 

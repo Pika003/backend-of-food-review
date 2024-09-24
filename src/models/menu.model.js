@@ -9,7 +9,12 @@ const menuSchema =  new mongoose.Schema({
     
     slug:{
         type:String
-    }
+    },
+
+    isActive:{
+        type:Number,
+        default: 1,
+    },
 
 },{timestamps:true}) 
 
