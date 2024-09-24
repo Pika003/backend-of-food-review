@@ -12,10 +12,10 @@ const messageSchema =  new mongoose.Schema({
         required: true,
     },
 
-    // profileImg:{
-    //     type:String,
-    //     required: true,
-    // },
+    message:{
+        type:String,
+        required: true,
+    },
 
     status:{
         type:String,
