@@ -119,14 +119,14 @@ const adminLogout = asyncHandler(async(req,res)=>{
     .json(new ApiResponse(200, {}, "admin logged out"))
 })
 
-// const getMessage = asyncHandler(async(req,res)=>{
+const getMessage = asyncHandler(async(req,res)=>{
 
-//     const AllMsg = await message.find({})
+    const AllMsg = await message.find({})
 
-//     return res 
-//     .status(200)
-//     .json(new ApiResponse(200,{AllMsg}, "successfully message fetch"))
-// })
+    return res 
+    .status(200)
+    .json(new ApiResponse(200,{AllMsg}, "successfully message fetch"))
+})
 
 const addMessage = asyncHandler(async(req,res)=>{
     const {email, name} = req.body
@@ -155,5 +155,6 @@ export{
     adminSignUp, 
     adminLogin, 
     adminLogout,
-    addMessage,   
+    addMessage, 
+    getMessage 
 }
