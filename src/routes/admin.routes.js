@@ -17,11 +17,9 @@ router.route("/login").post(adminLogin)
 
 router.route("/logout").post(authAdmin, adminLogout)
 
-router.route("/message/all").post(getMessage)
+router.route("/message/all").get(getMessage)
 
-router.route("/message/add").post(upload.fields([{
-    name : "profileImg"
-}]), addMessage)
+router.route("/message/add").post(addMessage)
 
 
 export default router;

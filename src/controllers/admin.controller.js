@@ -129,21 +129,7 @@ const getMessage = asyncHandler(async(req,res)=>{
 })
 
 const addMessage = asyncHandler(async(req,res)=>{
-    const {email, name} = req.body
-
-    const ProfileImgPath = req.files?.profileImg?.[0]?.path
-    
-    if(!ProfileImgPath){
-        throw new ApiError(400, "Profile image is required")
-    }
-
-    const profileImg = await uploadOnCloudinary(ProfileImgPath)
-
-    const newMsg = await message.create({
-        email,
-        name,
-        profileImg : profileImg.url
-    })
+    const newMsg = await message.create({ ...req.body})
 
     return res.status(200).json(
         new ApiResponse(200, newMsg, "Message added successfull")
