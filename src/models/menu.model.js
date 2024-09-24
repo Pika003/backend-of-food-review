@@ -14,7 +14,7 @@ const menuSchema =  new mongoose.Schema({
     isActive:{
         type:Number,
         default: 1,
-    },
+    }
 
 },{timestamps:true}) 
 
