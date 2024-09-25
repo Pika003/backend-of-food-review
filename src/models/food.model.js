@@ -45,7 +45,7 @@ const foodSchema =  new mongoose.Schema({
         ref: 'menu'
     }],
 
-    status:{
+    isActive:{
         type:Number,
         default: 1,
     }
