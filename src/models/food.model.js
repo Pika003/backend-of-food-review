@@ -18,18 +18,11 @@ const foodSchema =  new mongoose.Schema({
 
     image:{
         type:String,
-        required: true,
     },
 
-    ingredients:[{
+    fetured_images:{
         type:String,
-        required: true,
-    }],
-
-    categories:[{
-        type:String,
-        required: true,
-    }],
+    },
 
     price:{
         type:Number,
@@ -37,20 +30,20 @@ const foodSchema =  new mongoose.Schema({
         default: 0,
     },
 
-    type:[{
-        type:String,
-        required: true,
+    tags:[{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'tag'
     }],
 
-    rating:{
-        type:Number,
-        default: 0,
-    },
+    venues:[{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'hotel'
+    }],
 
-    hotel_id: {
-        type:String,
-        required: true,
-    },
+    menus:[{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'menu'
+    }],
 
     status:{
         type:Number,
