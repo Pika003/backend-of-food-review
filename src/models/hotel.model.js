@@ -20,11 +20,11 @@ const hotelSchema =  new mongoose.Schema({
         ref: 'menu'
     }],
 
-    image:{
+    images:[{
         type:String,
-    },
+    }],
 
-    fetured_images:{
+    fetured_image:{
         type:String,
     },
 

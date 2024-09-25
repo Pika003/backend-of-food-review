@@ -16,11 +16,11 @@ const foodSchema =  new mongoose.Schema({
         required: true,
     },
 
-    image:{
+    images:[{
         type:String,
-    },
+    }],
 
-    fetured_images:{
+    fetured_image:{
         type:String,
     },
 
