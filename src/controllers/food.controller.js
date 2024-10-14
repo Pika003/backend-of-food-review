@@ -41,17 +41,38 @@ const getFoodByName = asyncHandler(async(req,res)=>{
     .json(new ApiResponse(200, Food, "Successfully fetch"))
 })
 
-const getFood = asyncHandler(async(req,res)=>{
-    const id = req.params.id
+const getFood = asyncHandler(async (req, res) => {
+  const id = req.params.id;
 
-    const Food = await food.findOne({_id : id})
-
-    if(!Food){
-        throw new ApiError(400, "Food is not found !")
+  const Food = await food.aggregate([
+    {
+      $match: { _id:  new ObjectId(id) }
+    },
+    {
+      $lookup: {
+        from: "menus",       
+        localField: "menus",      
+        foreignField: "_id",    
+        as: "menuDetails"        
+      }
+    },
+    {
+      $lookup: {
+        from: "tags", 
+        localField: "tags",   
+        foreignField: "_id",
+        as: "tagDetails"   
+      }
     }
-    return res
+  ]);
+
+  if (!Food || Food.length === 0) {
+    throw new ApiError(400, "Food is not found!");
+  }
+
+  return res
     .status(200)
-    .json(new ApiResponse(200, Food, "Successfully found"))
+    .json(new ApiResponse(200, Food[0], "Successfully found"));
 })
 
 const delFood = asyncHandler(async(req,res)=>{
