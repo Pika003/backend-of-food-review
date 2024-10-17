@@ -28,7 +28,7 @@ const hotelSchema =  new mongoose.Schema({
         type:String,
     }],
 
-    fetured_image:{
+    featured_image:{
         type:String,
     },
 
