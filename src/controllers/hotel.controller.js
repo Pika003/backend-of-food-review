@@ -67,12 +67,16 @@ const getHotel = asyncHandler(async(req,res)=>{
 const updateHotel = asyncHandler(async(req,res)=>{
     const ID = req.params.id
     const newHotel = req.body
+    
+    const updatedHotel = await hotel.updateOne({ _id: ID }, { $set: newHotel });
 
-    const Hotel = await hotel.updateOne({_id : ID},{$set: {...newHotel}})
-
-    return res
-    .status(200)
-    .json(new ApiResponse(200, Hotel, "Hotel Update Successfully"))
+    if (!updatedHotel) {
+      throw new ApiError(400, "Hotel not found!");
+    }
+  
+    return res.status(200).json(
+      new ApiResponse(200, updatedHotel, "Hotel updated successfully")
+    );
 })
 
 const deleteHotel = asyncHandler(async(req,res)=>{
