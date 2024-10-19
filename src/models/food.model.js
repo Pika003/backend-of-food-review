@@ -11,6 +11,14 @@ const foodSchema =  new mongoose.Schema({
         type:String
     },
     
+    served:{
+        type:String
+    },
+
+    ingredients:{
+        type:String
+    },
+    
     description:{
         type:String,
         required: true,
