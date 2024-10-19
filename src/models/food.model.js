@@ -10,8 +10,8 @@ const foodSchema =  new mongoose.Schema({
     slug:{
         type:String
     },
-    
-    served:{
+
+    served_with:{
         type:String
     },
 
