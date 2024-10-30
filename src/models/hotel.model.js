@@ -40,6 +40,18 @@ const hotelSchema =  new mongoose.Schema({
         type: String,
     },
 
+    breakfast_time: {
+        type: String,
+    },
+
+    lunch_time: {
+        type: String,
+    },
+
+    dinner_time: {
+        type: String,
+    },
+
     type:[{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'type'

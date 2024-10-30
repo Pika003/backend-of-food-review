@@ -38,6 +38,14 @@ const foodSchema =  new mongoose.Schema({
         default: 0,
     },
 
+    editor_review: {
+        type:String,
+    },
+
+    history: {
+        type:String,
+    },
+
     tags:[{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'tag'
