@@ -99,7 +99,26 @@ const updateFood = asyncHandler(async(req,res)=>{
 const getHotelFood = asyncHandler(async(req,res)=>{
     const id = req.params.id
 
-    const Food = await food.find({hotel_id : id})
+    const Food = await food.aggregate([
+    {
+      $match: { venues : { $in: [new ObjectId(id)] } }
+    },
+    {
+      $lookup: {
+        from: "menus",       
+        localField: "menus",      
+        foreignField: "_id",    
+        as: "menuDetails"        
+      }
+    },
+    {
+      $lookup: {
+        from: "tags", 
+        localField: "tags",   
+        foreignField: "_id",
+        as: "tagDetails"   
+      }
+    }])
     
     if(!Food){
         throw new ApiError(400, "Food is not found !")
