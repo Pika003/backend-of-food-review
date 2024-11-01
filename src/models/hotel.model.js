@@ -61,6 +61,11 @@ const hotelSchema =  new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'menu'
     }],
+
+    cuisines:[{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'cuisine'
+    }],
     
     description:{
         type:String,

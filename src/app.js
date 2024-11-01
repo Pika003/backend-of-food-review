@@ -53,4 +53,8 @@ app.use("/api/type", typeRouter)
 import menuRouter from "./routes/menu.routes.js"
 app.use("/api/menu", menuRouter)
 
+//cuisine routes
+import cuisineRouter from "./routes/cuisine.routes.js"
+app.use("/api/cuisine", cuisineRouter)
+
 export {app}
