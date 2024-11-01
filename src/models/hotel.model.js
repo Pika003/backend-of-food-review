@@ -15,11 +15,6 @@ const hotelSchema =  new mongoose.Schema({
         type:String
     },
 
-    menus:[{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'menu'
-    }],
-
     images:[{
         type:String,
     }],
