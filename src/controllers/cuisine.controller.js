@@ -27,8 +27,20 @@ const allCuisine = asyncHandler(async(req,res)=>{
     .json(new ApiResponse(200, Cuisine, "Successfully fetch Cuisines"))
 })
 
+const getCuisine = asyncHandler(async(req,res)=>{
+    const ID = req.params.id;
+    const Cuisine = await cuisine.find({_id: ID})
+
+    if(!Cuisine){
+        throw new ApiError(400, "Cuisine is not found !")
+    }
+    return res
+    .status(200)
+    .json(new ApiResponse(200, Cuisine, "Successfully fetch Cuisines"))
+})
+
 const updateCuisine = asyncHandler(async(req,res)=>{
-    const ID = req.params.id
+    const ID = req.params.id;
     const newCuisine = req.body
 
     const Cuisine = await cuisine.updateOne({_id : ID},{$set: {...newCuisine}})
@@ -41,5 +53,6 @@ const updateCuisine = asyncHandler(async(req,res)=>{
 export {
     addCuisine,
     allCuisine,
-    updateCuisine
+    updateCuisine,
+    getCuisine
 }
