@@ -29,7 +29,7 @@ const allCuisine = asyncHandler(async(req,res)=>{
 
 const getCuisine = asyncHandler(async(req,res)=>{
     const ID = req.params.id;
-    const Cuisine = await cuisine.find({_id: ID})
+    const Cuisine = await cuisine.findOne({_id: ID})
 
     if(!Cuisine){
         throw new ApiError(400, "Cuisine is not found !")
