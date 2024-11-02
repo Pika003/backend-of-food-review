@@ -61,10 +61,10 @@ const foodSchema =  new mongoose.Schema({
         ref: 'menu'
     }],
 
-    cuisines:[{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'cuisine'
-    }],
+    // cuisines:[{
+    //     type: mongoose.Schema.Types.ObjectId,
+    //     ref: 'cuisine'
+    // }],
 
     isActive:{
         type:Number,
