@@ -53,6 +53,14 @@ const getHotel = asyncHandler(async(req,res)=>{
             foreignField: "_id",
             as: "typeDetails"   
           }
+        },
+        {
+          $lookup: {
+            from: "cuisines", 
+            localField: "cuisines",   
+            foreignField: "_id",
+            as: "cuisineDetails"   
+          }
         }
       ]);
 

@@ -63,14 +63,6 @@ const getFood = asyncHandler(async (req, res) => {
         foreignField: "_id",
         as: "tagDetails"   
       }
-    },
-    {
-      $lookup: {
-        from: "cuisines", 
-        localField: "cuisines",   
-        foreignField: "_id",
-        as: "cuisineDetails"   
-      }
     }
   ]);
 
