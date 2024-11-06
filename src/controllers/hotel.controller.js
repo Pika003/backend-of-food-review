@@ -120,14 +120,21 @@ const getHotelByName = asyncHandler(async(req,res)=>{
 })
 
 const filterHotel = asyncHandler(async (req, res) => {
-    const { selectedMenu, selectedPriceRange, selectedTypes } = req.body;
+    const { selectedMenu, selectedPriceRange, selectedTypes, selectedCuisine } = req.body;
     const pageNo = req.params.pageNo;
   
     const typeObjectId = selectedTypes.map((id) => new ObjectId(id));
     const menuObjectId = selectedMenu.map((id) => new ObjectId(id));
-  
+    const CuisineObjectId = selectedCuisine.map((id) => new ObjectId(id));
+
+
     const query = {};
   
+    // Filter by Cuisine
+    if (CuisineObjectId.length > 0) {
+      query.cuisines = { $in: CuisineObjectId };
+    }
+
     // Filter by Types
     if (typeObjectId.length > 0) {
       query.type = { $in: typeObjectId };
