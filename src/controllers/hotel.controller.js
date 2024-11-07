@@ -146,7 +146,7 @@ const filterHotel = asyncHandler(async (req, res) => {
     }
 
     // Filter by price range
-    if (selectedPriceRange > 0) {
+    if (selectedPriceRange.length > 0) {
         query.price = {$in: selectedPriceRange}
     }
   
