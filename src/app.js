@@ -57,4 +57,12 @@ app.use("/api/menu", menuRouter)
 import cuisineRouter from "./routes/cuisine.routes.js"
 app.use("/api/cuisine", cuisineRouter)
 
+//favFoodList routes
+import favFoodRouter from "./routes/favFood.routes.js"
+app.use("/api/favFood", favFoodRouter)
+
+//staticItem routes
+import staticItem from "./routes/staticItem.routes.js"
+app.use("/api/staticItem", staticItem)
+
 export {app}
