@@ -63,6 +63,6 @@ app.use("/api/favFood", favFoodRouter)
 
 //staticItem routes
 import staticItem from "./routes/staticItem.routes.js"
-app.use("/api/staticItem", staticItem)
+app.use("/api/cms", staticItem)
 
 export {app}

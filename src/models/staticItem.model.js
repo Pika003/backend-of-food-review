@@ -15,6 +15,10 @@ const staticItemSchema =  new mongoose.Schema({
         type:String
     },
 
+    image: {
+        type:String
+    },
+
     isActive:{
         type:Number,
         default: 1,
