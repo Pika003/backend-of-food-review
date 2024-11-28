@@ -11,13 +11,13 @@ const staticItemSchema =  new mongoose.Schema({
         type:String
     },
 
-    content:{
+    content:[{
         type:String
-    },
+    }],
 
-    image: {
+    image: [{
         type:String
-    },
+    }],
 
     isActive:{
         type:Number,
