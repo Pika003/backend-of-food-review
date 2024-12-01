@@ -66,3 +66,6 @@ import staticItem from "./routes/staticItem.routes.js"
 app.use("/api/cms", staticItem)
 
 export {app}
+
+
+//testing
