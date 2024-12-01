@@ -27,6 +27,18 @@ const allStaticItem = asyncHandler(async(req,res)=>{
     .json(new ApiResponse(200, StaticItem, "Successfully fetch staticItems"))
 })
 
+const getStaticItem = asyncHandler(async(req,res)=>{
+    const id = req.params.id;
+    const StaticItem = await staticItem.findOne({_id : id})
+
+    if(!StaticItem){
+        throw new ApiError(400, "staticItem is not found !")
+    }
+    return res
+    .status(200)
+    .json(new ApiResponse(200, StaticItem, "Successfully fetch staticItems"))
+})
+
 const updateStaticItem = asyncHandler(async(req,res)=>{
     const ID = req.params.id
     const newstaticItem = req.body
@@ -41,5 +53,6 @@ const updateStaticItem = asyncHandler(async(req,res)=>{
 export {
     addStaticItem,
     allStaticItem,
-    updateStaticItem
+    updateStaticItem,
+    getStaticItem
 }
