@@ -86,9 +86,20 @@ const updateFavFoodList = asyncHandler(async(req,res)=>{
     .json(new ApiResponse(200, "FavFoodList Update Successfully"))
 })
 
+const delFavList = asyncHandler(async(req,res)=>{
+    const id = req.params.id
+
+    const FoodList = await favFood.findByIdAndDelete({_id : id})
+
+    return res
+    .status(200)
+    .json(new ApiResponse(200, "FoodList Delete Successfully"))
+})
+
 export {
     allFavFoodList,
     addFavFoodList, 
     getFavFoodList, 
-    updateFavFoodList
+    updateFavFoodList,
+    delFavList
 }
