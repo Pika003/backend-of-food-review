@@ -3,7 +3,8 @@ import {
     allFavFoodList, 
     addFavFoodList, 
     getFavFoodList, 
-    updateFavFoodList, 
+    updateFavFoodList,
+    updateFoodFavFoodList,
     delFavList 
 } from "../controllers/favFood.controller.js";
 
@@ -16,6 +17,8 @@ router.route("/add").post(addFavFoodList)
 router.route("/:id").get(getFavFoodList)
 
 router.route("/update/:id").put(updateFavFoodList)
+
+router.route("/updateFood/:id").put(updateFoodFavFoodList)
 
 router.route("/delete/:id").delete(delFavList)
 
